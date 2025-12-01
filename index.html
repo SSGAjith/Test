@@ -251,8 +251,8 @@
 
         /* ANPASSUNG: Erfolgsmeldung (grüner Text) mit gleichem Abstand oben/unten, Standard-Schriftgröße */
         #success-message {
-            padding-top: 15px;      /* Abstand nach oben (sollte gleich dem Abstand der Buttons sein) */
-            padding-bottom: 15px;   /* Abstand nach unten (für Symmetrie) */
+            padding-top: 20px;      /* Abstand nach oben leicht erhöht */
+            padding-bottom: 20px;   /* Abstand nach unten ebenfalls erhöht für Symmetrie */
             margin: 0 !important;   /* Entfernt jegliche Standard-Margins */
             color: #27ae60;
             /* font-size: 1.5em; wurde entfernt, damit die Schriftgröße normal bleibt */
@@ -428,7 +428,6 @@
                 }
                 
                 if (!canOpenDoor(displayedNumber) && !isOpened) {
-                    doorEl.classList.add('locked');
                     doorEl.onclick = () => alert(`Du kannst Tür ${displayedNumber} erst ab dem ${displayedNumber}. Dezember öffnen!`);
                 } else {
                     doorEl.onclick = () => openDoor(currentDoorPosition, displayedNumber);
