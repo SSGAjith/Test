@@ -248,6 +248,16 @@
             cursor: pointer;
             font-size: 1em;
         }
+
+        /* ANPASSUNG: Erfolgsmeldung auf 15px Abstand gesetzt, passend zu #multiple-choice-container */
+        #success-message {
+            margin-top: 15px !important; 
+            color: #27ae60;
+            font-size: 1.5em;
+            font-weight: bold;
+            display: none;
+        }
+
     </style>
 </head>
 <body>
@@ -285,7 +295,7 @@
             
             <button id="submit-answer" class="riddle-button">Antwort prüfen</button>
             <p id="feedback-message" style="margin-top: 10px; font-weight: bold;"></p>
-            <p id="success-message" style="margin-top: 10px; color: #27ae60; font-weight: bold; display: none;">Richtig! Tür geöffnet!</p>
+            <p id="success-message">Richtig! Tür geöffnet!</p> 
         </div>
     </div>
 
@@ -449,12 +459,12 @@
             const unlockedCount = Object.keys(revealedLetters).length;
             
             if (unlockedCount === NUM_DOORS) {
-                    finalMessageEl.style.display = 'block';
-                    progressEl.style.display = 'none';
-                    finalMessageEl.textContent = DISPLAY_MESSAGE.trim(); 
+                        finalMessageEl.style.display = 'block';
+                        progressEl.style.display = 'none';
+                        finalMessageEl.textContent = DISPLAY_MESSAGE.trim(); 
             } else {
-                    finalMessageEl.style.display = 'none'; 
-                    progressEl.style.display = 'block';
+                        finalMessageEl.style.display = 'none'; 
+                        progressEl.style.display = 'block';
             }
         }
 
@@ -664,4 +674,3 @@
     </script>
 </body>
 </html>
-
