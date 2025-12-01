@@ -249,11 +249,13 @@
             font-size: 1em;
         }
 
-        /* ANPASSUNG: Erfolgsmeldung auf 15px Abstand gesetzt, passend zu #multiple-choice-container */
+        /* ANPASSUNG: Erfolgsmeldung (grüner Text) mit gleichem Abstand oben/unten, Standard-Schriftgröße */
         #success-message {
-            margin-top: 15px !important; 
+            padding-top: 15px;      /* Abstand nach oben (sollte gleich dem Abstand der Buttons sein) */
+            padding-bottom: 15px;   /* Abstand nach unten (für Symmetrie) */
+            margin: 0 !important;   /* Entfernt jegliche Standard-Margins */
             color: #27ae60;
-            font-size: 1.5em;
+            /* font-size: 1.5em; wurde entfernt, damit die Schriftgröße normal bleibt */
             font-weight: bold;
             display: none;
         }
@@ -365,9 +367,15 @@
 
         function cleanAnswer(answer) {
             if (!answer) return "";
-            return answer.toLowerCase()
-                         .normalize("NFD").replace(/[\u0300-\u036f]/g, "") 
-                         .replace(/[^a-z0-9]/g, '');
+            let cleaned = answer.toLowerCase()
+                             .normalize("NFD").replace(/[\u0300-\u036f]/g, "") 
+                             .replace(/[^a-z0-9\s]/g, ''); // Erlaube Leerzeichen temporär
+
+            // Entferne gängige Artikel (mit nachfolgendem Leerzeichen) am Anfang
+            cleaned = cleaned.replace(/^(der|die|das|ein|eine)\s/, '');
+
+            // Entferne alle verbleibenden Leerzeichen und gib die bereinigte Antwort zurück
+            return cleaned.replace(/\s/g, ''); 
         }
         
         function canOpenDoor(day) {
@@ -490,6 +498,7 @@
 
 
         function shuffleOptions(options, correctAnswer) {
+            // Die Optionen sollten nur als Text angezeigt werden, die Bereinigung erfolgt beim Vergleichen.
             if (!options.map(cleanAnswer).includes(cleanAnswer(correctAnswer))) {
                 options.push(correctAnswer);
             }
@@ -567,7 +576,7 @@
                     const button = document.createElement('button');
                     button.classList.add('mc-button');
                     button.textContent = optionText;
-                    button.dataset.answer = cleanAnswer(optionText);
+                    button.dataset.answer = cleanAnswer(optionText); // Hier wird die bereinigte Option gespeichert
                     // Den echten Ziel-Buchstaben und die Position übergeben
                     button.onclick = () => checkMcAnswer(button.dataset.answer, targetPosition, revealedLetterCandidate, displayedNumber);
                     mcContainer.appendChild(button);
@@ -597,6 +606,7 @@
             const assignment = assignments[currentDoorNumber];
             const targetPosition = assignment.targetPosition; 
             
+            // Beide Antworten werden mit der bereinigten Funktion verglichen
             const userAnswer = cleanAnswer(answerInput.value);
             const correctAnswer = cleanAnswer(riddleData.answer); 
             
