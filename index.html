@@ -612,7 +612,7 @@
             
             const revealedLetter = TARGET_LETTERS[targetPosition - 1]; 
 
-            if (userAnswer === correctAnswer) {
+            if (userAnswer.includes(correctAnswer)) {
                 processCorrectAnswer(targetPosition, revealedLetter);
             } else {
                 feedbackMsg.textContent = 'Falsche Antwort. Versuch es nochmal!';
@@ -684,6 +684,7 @@
     </script>
 </body>
 </html>
+
 
 
 
