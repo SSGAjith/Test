@@ -249,13 +249,12 @@
             font-size: 1em;
         }
 
-        /* ANPASSUNG: Erfolgsmeldung (grüner Text) mit gleichem Abstand oben/unten, Standard-Schriftgröße */
+        /* ANPASSUNG: Erfolgsmeldung (grüner Text) mit kleinerem Abstand */
         #success-message {
-            padding-top: 20px;      /* Abstand nach oben leicht erhöht */
-            padding-bottom: 20px;   /* Abstand nach unten ebenfalls erhöht für Symmetrie */
+            padding-top: 10px;      /* Abstand nach oben reduziert */
+            padding-bottom: 10px;   /* Abstand nach unten reduziert */
             margin: 0 !important;   /* Entfernt jegliche Standard-Margins */
             color: #27ae60;
-            /* font-size: 1.5em; wurde entfernt, damit die Schriftgröße normal bleibt */
             font-weight: bold;
             display: none;
         }
@@ -332,7 +331,7 @@
             { category: "IMAGE", question: "Was ist das?", imageSrc: "Eichhörnchen.png", answer: "eichhörnchen", options: ["Marder", "Ratte", "Eichhörnchen", "Maulwurf"] },
             { category: "LOGIC_MC", question: "Ein Arzt gibt dir 3 Pillen und sagt, du sollst alle 30 Minuten eine nehmen. Wie lange dauert es? Wähle Option A. Gib 'eine' ein.", answer: "eine" },
             { question: "Je mehr davon da ist, desto weniger sieht man. Was ist es?", answer: "dunkelheit" },
-            { category: "MATH_MC", question: "Wie lautet die Ableitung von $f(x) = e^{3x}$? (A) $e^{3x}$, (B) $3e^{3x}$, (C) $e^{3x}/3$. Wähle Option B. Gib 'ergebnis' ein.", answer: "ergebnis" },
+            { category: "MATH_MC", question: "Wie lautet die Ableitung von f(x) = e^{3x}? (A) e^{3x}, (B) 3e^{3x}, (C) $^{3x}/3. Wähle Option B. Gib 'ergebnis' ein.", answer: "ergebnis" },
             { question: "Was kann man brechen ohne es anzufassen oder zu sehen", answer: "versprechen" } 
         ];
         
@@ -381,6 +380,7 @@
         function canOpenDoor(day) {
 
             return true;
+
             const today = new Date(); 
             const currentMonth = today.getMonth() + 1;
             const currentDay = today.getDate();
@@ -428,6 +428,7 @@
                 }
                 
                 if (!canOpenDoor(displayedNumber) && !isOpened) {
+                    doorEl.classList.add('locked');
                     doorEl.onclick = () => alert(`Du kannst Tür ${displayedNumber} erst ab dem ${displayedNumber}. Dezember öffnen!`);
                 } else {
                     doorEl.onclick = () => openDoor(currentDoorPosition, displayedNumber);
